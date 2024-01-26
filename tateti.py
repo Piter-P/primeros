@@ -2,7 +2,6 @@ import random
 import time
 
 positions = []
-position = 1
 
 # iniciamos las 9 posiciones vacias
 for i in range(0, 9):
