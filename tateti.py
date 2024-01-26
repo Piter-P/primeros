@@ -4,38 +4,35 @@ import time
 positions = []
 position = 1
 
+# iniciamos las 9 posiciones vacias
 for i in range(0, 9):
     positions.append(' ')
 
-
+# cual posicion quiere poner X
 def player_x(positions):
     positions[int(input('donde: ')) - 1] = 'X'
-    return positions
+    # return positions
 
 
 def computer_player(positions):
     selection = random.randint(0, 8)
     if positions[selection] == ' ':
         positions[selection] = 'O'
-        return positions
+        #return positions
     else:
         computer_player(positions)
 
 
-def empty_space(positions, position):
-    if positions[position - 1] == ' ':
-        return position
-    else:
-        return positions[position - 1]
-
-
-def print_game(position):
+def print_game():
+    posicion = 0
     for i in range(0, 3):
         for j in range(0, 3):
-            print(f' ', empty_space(positions, position), ' ', end=' ')
-            position += 1
+            if positions[posicion] == ' ':
+                print(f' {posicion + 1} ', end=' ')
+            else:
+                print(f' {positions[posicion]} ', end=' ')
+            posicion += 1
         print('')
-
 
 def win_game(positions):
     # check vertical
@@ -67,7 +64,7 @@ for i in range(0, 9):
         print('computer choice: ')
         time.sleep(1)
         computer_player(positions)
-    print_game(position)
+    print_game()
     winner, win = win_game(positions)
     if winner:
         print(f'the winner is:', win)
