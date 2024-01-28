@@ -1,5 +1,9 @@
 import random
 import time
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from uitateti import Ui_main
+
+
 
 positions = []
 
@@ -7,9 +11,12 @@ positions = []
 for i in range(0, 9):
     positions.append(' ')
 
+
 # cual posicion quiere poner X
 def player_x(positions):
-    positions[int(input('donde: ')) - 1] = 'X'
+    lugar = int(input('donde: '))
+    if positions[lugar - 1] == ' ':
+        positions[lugar - 1] = 'X'
     # return positions
 
 
@@ -55,16 +62,35 @@ def win_game(positions):
     win = '0'
     return False, win
 
+def juego():
+    for i in range(0, 9):
+        if i % 2 == 0:
+            player_x(positions)
+        else:
+            print('computer choice: ')
+            time.sleep(1)
+            computer_player(positions)
+        print_game()
+        winner, win = win_game(positions)
+        if winner:
+            print(f'the winner is:', win)
+            break
 
-for i in range(0, 9):
-    if i % 2 == 0:
-        player_x(positions)
-    else:
-        print('computer choice: ')
-        time.sleep(1)
-        computer_player(positions)
-    print_game()
-    winner, win = win_game(positions)
-    if winner:
-        print(f'the winner is:', win)
-        break
+
+
+
+class MiVentana(QMainWindow, Ui_main):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        
+
+    
+
+
+if __name__ == "__main__":
+    app = QApplication([])
+    ventana = MiVentana()
+    ventana.show()
+    juego()
+    app.exec_()
