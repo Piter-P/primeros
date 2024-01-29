@@ -3,28 +3,42 @@ import time
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from uitateti import Ui_main
 
-
-
 positions = []
 
-# iniciamos las 9 posiciones vacias
-for i in range(0, 9):
-    positions.append(' ')
+def posiciones_vacias(positions: list) -> list:
+    # iniciamos las 9 posiciones vacias
+    for i in range(0, 9):
+        positions.append(' ')
+    return positions
 
 
-# cual posicion quiere poner X
-def player_x(positions):
-    lugar = int(input('donde: '))
-    if positions[lugar - 1] == ' ':
-        positions[lugar - 1] = 'X'
-    # return positions
+def jugador_x(positions: list) -> list:
+    # cual posicion quiere poner X. Verifica lugar vacio y devuelve las posiciones
+    while True:
+        try:
+            lugar = int(input('Jugador X: '))
+            if 1 <= lugar <= 9 and positions[lugar - 1] == ' ': 
+                positions[lugar - 1] = 'X'
+                return positions
+            else:
+                print('Posicion incorrecta. Intentelo de nuevo.')
+        except:
+            print('Error!')
+            pass
 
+    '''
+    La eleccion de la posicion del jugador es distinta a la de la maquina ya que el usuario puede poner
+    cualquier caracter o frase en el input por lo que hay que verificar el paso a int y lugar vacio. 
+    En cambio la compu hace random de int dentro de las posiciones y si no esta vacia hace una recursion
+    del random
+    '''
 
-def computer_player(positions):
+def computer_player(positions: list) -> list:
+    # posicion random de jugador O. verifica lugar vacio y devuelve posiciones.
     selection = random.randint(0, 8)
     if positions[selection] == ' ':
         positions[selection] = 'O'
-        #return positions
+        return positions
     else:
         computer_player(positions)
 
@@ -40,7 +54,7 @@ def print_game():
             posicion += 1
         print('')
 
-def win_game(positions):
+def win_game(positions: list):
     # check vertical
     for i in range(0, 3):
         if positions[i] == positions[i + 3] == positions[i + 6]:
@@ -53,7 +67,7 @@ def win_game(positions):
             if positions[i] == 'X' or positions[i] == 'O':
                 win = positions[i]
                 return True, win
-    # check diagonals
+    # check diagonal
     if positions[0] == positions[4] == positions[8]\
     or positions[2] == positions[4] == positions[6]:
         if positions[4] == 'X' or positions[4] == 'O':
@@ -63,9 +77,10 @@ def win_game(positions):
     return False, win
 
 def juego():
+    posiciones_vacias(positions)
     for i in range(0, 9):
         if i % 2 == 0:
-            player_x(positions)
+            jugador_x(positions)
         else:
             print('computer choice: ')
             time.sleep(1)
@@ -73,7 +88,7 @@ def juego():
         print_game()
         winner, win = win_game(positions)
         if winner:
-            print(f'the winner is:', win)
+            print(f'The winner is: {win}')
             break
 
 
