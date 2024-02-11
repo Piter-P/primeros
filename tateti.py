@@ -1,7 +1,8 @@
 import random
 import time
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from uitateti import Ui_main
+#from uitateti import Ui_main
+from mitateti import MiVentana
 
 positions = []
 
@@ -54,7 +55,7 @@ def print_game():
             posicion += 1
         print('')
 
-def win_game(positions: list):
+def chequeo_ganador(positions: list):
     # check vertical
     for i in range(0, 3):
         if positions[i] == positions[i + 3] == positions[i + 6]:
@@ -86,19 +87,19 @@ def juego():
             time.sleep(1)
             computer_player(positions)
         print_game()
-        winner, win = win_game(positions)
+        winner, win = chequeo_ganador(positions)
         if winner:
             print(f'The winner is: {win}')
             break
 
 
-
+'''
 
 class MiVentana(QMainWindow, Ui_main):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+ '''       
 
     
 
@@ -108,4 +109,4 @@ if __name__ == "__main__":
     ventana = MiVentana()
     ventana.show()
     juego()
-    app.exec_()
+    app.exec()

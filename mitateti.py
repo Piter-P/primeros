@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 
 class MiVentana(QMainWindow):
     def __init__(self) -> None:
-        super(MiVentana,self).__init__()
+        super().__init__()
         self.setWindowTitle('TATETI')
         self.resize(310, 400)
         self.graficos()
@@ -62,6 +62,13 @@ class MiVentana(QMainWindow):
         self.texto.setText('probando ')
         self.texto.move(10,325)
 
+        self.b1.clicked.connect(self.cambiar_texto)
+
+    def cambiar_texto(self):
+        #posicion = int(input("posicion: "))
+        self.b1.setText('X')
+
+
 
 
 def ventana():
@@ -70,6 +77,9 @@ def ventana():
     win = MiVentana()
     
     win.show()
+    
+
     app.exec()
+    
 
 ventana()
