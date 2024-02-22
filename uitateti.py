@@ -87,6 +87,7 @@ class Ui_main(object):
         font.setPointSize(25)
         self.b7.setFont(font)
         self.b7.setObjectName("b7")
+        
         main.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(main)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))

@@ -6,8 +6,9 @@ class MiVentana(QMainWindow):
         super().__init__()
         self.setWindowTitle('TATETI')
         self.resize(310, 400)
+        self.lista_botones = []
         self.graficos()
-
+        
 
     def graficos(self):
         font = QtGui.QFont()
@@ -59,16 +60,77 @@ class MiVentana(QMainWindow):
         self.b9.setText('9')
 
         self.texto = QtWidgets.QLabel(self)
-        self.texto.setText('probando ')
+        self.texto.setText('')
         self.texto.move(10,325)
 
         self.b1.clicked.connect(self.cambiar_texto)
+        self.b2.clicked.connect(self.cambiar_texto)
+        self.b3.clicked.connect(self.cambiar_texto)
+        self.b4.clicked.connect(self.cambiar_texto)
+        self.b5.clicked.connect(self.cambiar_texto)
+        self.b6.clicked.connect(self.cambiar_texto)
+        self.b7.clicked.connect(self.cambiar_texto)
+        self.b8.clicked.connect(self.cambiar_texto)
+        self.b9.clicked.connect(self.cambiar_texto)
 
+        self.lista_botones.extend([self.b1, self.b2, self.b3, self.b4, self.b5, self.b6, self.b7, self.b8, self.b9,])
+        self.jugador = 'X'
+
+    
     def cambiar_texto(self):
-        #posicion = int(input("posicion: "))
-        self.b1.setText('X')
+        boton = self.sender()
+        if self.jugador == 'X':
+            boton.setText('X')
+            self.jugador = 'O'
+        else:
+            boton.setText('O')
+            self.jugador = 'X'
+        self.texto.setText(f'{self.ver_posiciones()}')
+        
 
+    def ver_posiciones(self):
+        posiciones = []
+        for boton in self.lista_botones:
+            posiciones.append(boton.text())
+        return posiciones
 
+'''
+def chequeo_ganador(positions: list):
+    # check vertical
+    for i in range(0, 3):
+        if positions[i] == positions[i + 3] == positions[i + 6]:
+            if positions[i] == 'X' or positions[i] == 'O':
+                win = positions[i]
+                return True, win
+    # check horizontal
+    for i in range(0, 9, 3):
+        if positions[i] == positions[i + 1] == positions[i + 2]:
+            if positions[i] == 'X' or positions[i] == 'O':
+                win = positions[i]
+                return True, win
+    # check diagonal
+    if positions[0] == positions[4] == positions[8]\
+    or positions[2] == positions[4] == positions[6]:
+        if positions[4] == 'X' or positions[4] == 'O':
+            win = positions[4]
+            return True, win
+    win = '0'
+    return False, win
+
+def jugador():
+    for i in range(0, 9):
+        if i % 2 == 0:
+            jugador = 'X'
+        else:
+            jugador = 'O'
+        return jugador
+
+        winner, win = chequeo_ganador(positions)
+        if winner:
+            print(f'The winner is: {win}')
+            break
+
+'''
 
 
 def ventana():
@@ -77,7 +139,6 @@ def ventana():
     win = MiVentana()
     
     win.show()
-    
 
     app.exec()
     

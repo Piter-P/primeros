@@ -1,8 +1,7 @@
 import random
 import time
 from PyQt5.QtWidgets import QApplication, QMainWindow
-#from uitateti import Ui_main
-from mitateti import MiVentana
+from uitateti import Ui_main
 
 positions = []
 
@@ -93,13 +92,13 @@ def juego():
             break
 
 
-'''
+
 
 class MiVentana(QMainWindow, Ui_main):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
- '''       
+        
 
     
 
