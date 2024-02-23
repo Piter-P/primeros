@@ -85,7 +85,9 @@ class MiVentana(QMainWindow):
         else:
             boton.setText('O')
             self.jugador = 'X'
-        self.texto.setText(f'{self.ver_posiciones()}')
+        winner, player = chequeo_ganador(self.ver_posiciones())
+        if winner:
+            self.texto.setText(f'Ganador: {player}')
         
 
     def ver_posiciones(self):
@@ -94,7 +96,6 @@ class MiVentana(QMainWindow):
             posiciones.append(boton.text())
         return posiciones
 
-'''
 def chequeo_ganador(positions: list):
     # check vertical
     for i in range(0, 3):
@@ -117,6 +118,7 @@ def chequeo_ganador(positions: list):
     win = '0'
     return False, win
 
+'''
 def jugador():
     for i in range(0, 9):
         if i % 2 == 0:
