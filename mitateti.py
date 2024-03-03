@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from random import choice
 
 class MiVentana(QMainWindow):
     def __init__(self) -> None:
@@ -63,31 +64,40 @@ class MiVentana(QMainWindow):
         self.texto.setText('')
         self.texto.move(10,325)
 
-        self.b1.clicked.connect(self.cambiar_texto)
-        self.b2.clicked.connect(self.cambiar_texto)
-        self.b3.clicked.connect(self.cambiar_texto)
-        self.b4.clicked.connect(self.cambiar_texto)
-        self.b5.clicked.connect(self.cambiar_texto)
-        self.b6.clicked.connect(self.cambiar_texto)
-        self.b7.clicked.connect(self.cambiar_texto)
-        self.b8.clicked.connect(self.cambiar_texto)
-        self.b9.clicked.connect(self.cambiar_texto)
+        self.b1.clicked.connect(self.logica_juego)
+        self.b2.clicked.connect(self.logica_juego)
+        self.b3.clicked.connect(self.logica_juego)
+        self.b4.clicked.connect(self.logica_juego)
+        self.b5.clicked.connect(self.logica_juego)
+        self.b6.clicked.connect(self.logica_juego)
+        self.b7.clicked.connect(self.logica_juego)
+        self.b8.clicked.connect(self.logica_juego)
+        self.b9.clicked.connect(self.logica_juego)
 
         self.lista_botones.extend([self.b1, self.b2, self.b3, self.b4, self.b5, self.b6, self.b7, self.b8, self.b9,])
         self.jugador = 'X'
 
     
-    def cambiar_texto(self):
-        boton = self.sender()
+    def logica_juego(self):
+    
         if self.jugador == 'X':
-            boton.setText('X')
-            self.jugador = 'O'
+            boton = self.sender()
+            if boton.text() != 'O' and boton.text() != 'X' and self.jugador == 'X':
+                boton.setText('X')
+                self.jugador = 'O'
         else:
-            boton.setText('O')
-            self.jugador = 'X'
+            while True:
+                botono = choice(self.lista_botones)
+                if botono.text() != 'O' and botono.text() != 'X':
+                    botono.setText('O')
+                    self.jugador = 'X'
+                    break
+                else:
+                    pass
         winner, player = chequeo_ganador(self.ver_posiciones())
         if winner:
             self.texto.setText(f'Ganador: {player}')
+            
         
 
     def ver_posiciones(self):
@@ -117,22 +127,6 @@ def chequeo_ganador(positions: list):
             return True, win
     win = '0'
     return False, win
-
-'''
-def jugador():
-    for i in range(0, 9):
-        if i % 2 == 0:
-            jugador = 'X'
-        else:
-            jugador = 'O'
-        return jugador
-
-        winner, win = chequeo_ganador(positions)
-        if winner:
-            print(f'The winner is: {win}')
-            break
-
-'''
 
 
 def ventana():
